@@ -1,0 +1,22 @@
+{% extends '@KreyuDataTable/themes/tabler.html.twig' %}
+
+{% block filter_clear_button %}
+    <a class="btn px-2"
+       href="{{ data_table_filter_clear_url(data_table, filter) }}"
+       data-turbo-action="advance"
+       data-toggle="tooltip"
+       data-placement="bottom"
+       title="{{ 'Clear filter'|trans({}, 'KreyuDataTable') }}"
+    >
+        <span class="mx-1">
+            <strong>{{ filter.vars.label|trans({}, filter.vars.translation_domain) }}</strong>
+
+            {% if filter.vars.operator_selectable %}
+                <span class="text-muted">{{ filter.vars.data.operator.label|trans({}, 'KreyuDataTable') }}</span>
+            {% endif %}
+        </span>
+
+        <span class="">{{ filter.vars.value is iterable ? filter.vars.value|map(value => value|trans)|join(', ') : filter.vars.value|trans({}, filter.vars.translation_domain) }}</span>
+        <span class="mx-2" aria-hidden="true">{{ block('filter_clear_button_icon') }}</span>
+    </a>
+{% endblock %}
